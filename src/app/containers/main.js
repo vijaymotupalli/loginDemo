@@ -3,9 +3,11 @@ import { setLoginSuccess } from "../actions/index";
 import {connect} from "react-redux";
 import {bindActionCreators} from 'redux';
 import Menu from './menu'
+import Timetracker from './calendar'
 import  User  from "./user";
 import {Title} from "../components/title";
 import { BrowserRouter,Route ,Redirect} from 'react-router-dom'
+import './styles.css'
 
 class Main extends React.Component {
     constructor(props) {
@@ -15,19 +17,19 @@ class Main extends React.Component {
         }
     }
     render(){
-        let {isLoginPending, isLoginSuccess, loginError} = this.props;
+        let {isLoginPending, isLoginSuccess, loginError,match} = this.props;
         return (
             <div>
-                { !isLoginSuccess && <Redirect to={{pathname: '/login'}}/>}
+                { !isLoginSuccess && <Redirect to={{pathname: '/'}}/>}
                 <div className="vertical-menu-div">
-                    <Menu/>
+                    <Route  component={Menu} />
                 </div>
                 <div className="menu-conetent-container">
-                    <Route   path="/user" component={User} />
-                    <Route exact path="/" component={Title} />
+                    <Route exact  path={match.url+'/user'} component={User} />
+                    <Route exact  path={match.url} component={Title} />
+                    <Route exact  path={match.url+'/timetracker'} component={Timetracker} />
                 </div>
             </div>
-
         );
     }
 };
@@ -41,11 +43,11 @@ const mapStateToProps = (state) => {
 };
 
 
- const mapDispatchToProps = (dispatch)=> {
+const mapDispatchToProps = (dispatch)=> {
 
-     return {
-         setLoginSuccess: (status) => dispatch(setLoginSuccess(status))
-     };
+    return {
+        setLoginSuccess: (status) => dispatch(setLoginSuccess(status))
+    };
 
 }
 

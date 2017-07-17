@@ -11,8 +11,8 @@ class App extends React.Component {
     render() {
         return (
             <div className="container">
-                <Route  path="/" component={Main} />
-                <Route exact path="/login" component={Login} />
+                <Route exact path="/" component={Login} />
+                <Route  path="/app" component={Main} />
             </div>
         );
     }

@@ -4,9 +4,12 @@ import {connect} from "react-redux";
 import { BrowserRouter,Route ,Redirect} from 'react-router-dom'
 
 class Login extends React.Component {
-
     constructor(props) {
         super(props);
+
+        if(localStorage.getItem("userToken")){
+            this.props.setLoginSuccess(true);
+        }
         this.state = {
             email:"",
             password:""
@@ -26,7 +29,7 @@ class Login extends React.Component {
         let {isLoginPending, isLoginSuccess, loginError} = this.props;
         return (
             <div>
-                { isLoginSuccess && <Redirect to={{pathname: '/'}}/>}
+                { isLoginSuccess && <Redirect to={{pathname: '/app'}}/>}
 
                 <form className="form-signin" onSubmit={this.onSubmit}>
                     <h2 className="form-signin-heading">Please sign in</h2>
@@ -58,7 +61,7 @@ class Login extends React.Component {
 };
 
 const mapStateToProps = (state) => {
-    console.log("----props----",state)
+    console.log("----state----",state)
     return {
         isLoginPending: state.Login.isLoginPending,
         isLoginSuccess: state.Login.isLoginSuccess,

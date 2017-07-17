@@ -5,22 +5,14 @@ class User extends React.Component {
    render(){
        return (
            <div>
-               <div className="row">
-                   <div className="col-xs-12">
-                       <h1>Second Container Which Connected To State</h1>
-                       <h4>The User Page</h4>
-
-                   </div>
-               </div>
-               <div className="row">
-                   <div className="col-xs-12">
-                       <p>User Name:{this.props.user.name} </p>
-                   </div>
-               </div>
+                       <h1>Second Container is Connected Here </h1>
+                       <h4>The User Page Is Below: </h4>
+                       <p>User Name: {this.props.user.name}</p>
            </div>
        );
    }
 }
+
 
 const mapStateToProps = (state) => {
     return {
