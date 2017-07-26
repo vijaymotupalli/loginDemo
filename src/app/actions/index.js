@@ -30,7 +30,7 @@ function setLoginError(loginError) {
 }
 function callLoginApi(email, password, callback) {
     setTimeout(() => {
-        if (email === 'admin@example.com' && password === 'admin') {
+        if ((email === 'admin@example.com' || email === 'motupallivijay@gmail.com') && password === 'admin') {
             return callback(null);
         } else {
             return callback(new Error('Invalid email and password'));
@@ -46,6 +46,24 @@ export function login(email, password) {
         dispatch(setLoginError(null));
 
         callLoginApi(email, password, error => {
+            dispatch(setLoginPending(false));
+            if (!error) {
+                localStorage.setItem("userToken",email);
+                dispatch(setLoginSuccess(true));
+            } else {
+                dispatch(setLoginError(error));
+            }
+        });
+    }
+}
+export function googleLogin(email) {
+
+    return  dispatch => {
+        dispatch(setLoginPending(true));
+        dispatch(setLoginSuccess(false));
+        dispatch(setLoginError(null));
+
+        callLoginApi(email, "admin", error => {
             dispatch(setLoginPending(false));
             if (!error) {
                 localStorage.setItem("userToken",email);

@@ -33,6 +33,7 @@ class Menu extends React.Component{
                     <a><Link to={match.url + '/user'} >User</Link></a>
                     <a><Link to={match.url + '/timetracker'} >Time Tracker</Link></a>
                     <a><Link to={match.url + '/newlogin'} >new Login</Link></a>
+                    <a><Link to={match.url + '/google'} >Google Login</Link></a>
                     <a><Link to={match.url + '/signout'} onClick={this.onSubmit}>Signout</Link></a>
                 </div>
             </div>
