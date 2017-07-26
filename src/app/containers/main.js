@@ -3,7 +3,9 @@ import { setLoginSuccess } from "../actions/index";
 import {connect} from "react-redux";
 import {bindActionCreators} from 'redux';
 import Menu from './menu'
+import newMenu from './newMenu'
 import Timetracker from './calendar'
+import Newlogin from './newlogin'
 import  User  from "./user";
 import {Title} from "../components/title";
 import { BrowserRouter,Route ,Redirect} from 'react-router-dom'
@@ -21,13 +23,14 @@ class Main extends React.Component {
         return (
             <div>
                 { !isLoginSuccess && <Redirect to={{pathname: '/'}}/>}
-                <div className="vertical-menu-div">
-                    <Route  component={Menu} />
+                <div >
+                    <Route  component={newMenu} />
                 </div>
-                <div className="menu-conetent-container">
+                <div  className="container-fluid" id="toggleMenu">
                     <Route exact  path={match.url+'/user'} component={User} />
                     <Route exact  path={match.url} component={Title} />
                     <Route exact  path={match.url+'/timetracker'} component={Timetracker} />
+                    <Route exact  path={match.url+'/newlogin'} component={Newlogin} />
                 </div>
             </div>
         );

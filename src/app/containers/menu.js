@@ -17,6 +17,7 @@ class Menu extends React.Component{
                     <Link to="/app" >Home</Link>
                     <Link to={match.url + '/user'} >User</Link>
                     <Link to={match.url + '/timetracker'} >Time Tracker</Link>
+                    <Link to={match.url + '/newlogin'} >new Login</Link>
                     <Link to={match.url + '/signout'} onClick={this.onSubmit}>Signout</Link>
                 </div>
 
