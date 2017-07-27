@@ -10,6 +10,9 @@
     padding: 12px; /* Add some padding */
     text-decoration: none; /* Remove underline from links */
 }
+.errorcolor{
+    color:red;
+}
 
 .vertical-menu a:hover {
     background-color: #e21915; /* Dark grey background on mouse-over */
@@ -672,4 +675,16 @@ image-upload .x-mark{
 }
 #select{
     color:#fff;
+}
+.googlebutton {
+    font-size: 14px;
+    width: 100%;
+    border: 0;
+    border-radius: 0;
+    padding: 10px 0;
+    line-height: 21px;
+    margin: 20px 0 0 0;
+    background: #fb1717;
+    text-transform: uppercase;
+    color: white;
 }

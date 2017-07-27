@@ -6,6 +6,7 @@ import Menu from './menu'
 import newMenu from './newMenu'
 import Timetracker from './calendar'
 import Newlogin from './newlogin'
+import Google from './google.js'
 import  User  from "./user";
 import {Title} from "../components/title";
 import { BrowserRouter,Route ,Redirect} from 'react-router-dom'
@@ -31,6 +32,7 @@ class Main extends React.Component {
                     <Route exact  path={match.url} component={Title} />
                     <Route exact  path={match.url+'/timetracker'} component={Timetracker} />
                     <Route exact  path={match.url+'/newlogin'} component={Newlogin} />
+                    <Route exact  path={match.url+'/google'} component={Google} />
                 </div>
             </div>
         );
