@@ -29,12 +29,13 @@ class Menu extends React.Component {
     render() {
         const {match} = this.props
         return (
-            <div>
+            <div className="container-fluid">
                 <div id="mySidenav" className="sidenav">
                     <a className="closebtn" onClick={this.closeNav}>&times;</a>
                     <img src="../../assets/images/logo.png" className="logo2"/>
                     <div className="mainLinks">
                         <NavLink to= {match.url+'/timetracker' }activeClassName="active" exact>Time Tracker</NavLink>
+                        <NavLink to= {match.url+'/userdetails' }activeClassName="active" exact>UserDetails</NavLink>
                         <NavLink to= {match.url+'/user'} activeClassName="active" exact><img
                             src="../../assets/images/multiple-users-silhouette.png"/> Users List</NavLink>
                         <NavLink to={match.url+'/signout'}  activeClassName="active" onClick={this.onSubmit} exact><img

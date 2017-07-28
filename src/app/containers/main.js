@@ -8,6 +8,7 @@ import Timetracker from './calendar'
 import Newlogin from './newlogin'
 import Google from './google.js'
 import  User  from "./user";
+import  UserDetails  from "./userDetails";
 import {Title} from "../components/title";
 import { BrowserRouter,Route ,Redirect} from 'react-router-dom'
 import './styles.css'
@@ -15,7 +16,7 @@ import './styles.css'
 class Main extends React.Component {
     constructor(props) {
         super(props);
-        if(localStorage.getItem("userToken")){
+        if(localStorage.getItem("accesstoken")){
             this.props.setLoginSuccess(true);
         }
     }
@@ -27,9 +28,10 @@ class Main extends React.Component {
                 <div >
                     <Route  component={newMenu} />
                 </div>
-                <div  className="container-fluid" id="toggleMenu">
+                <div  id="toggleMenu">
                     <Route exact  path={match.url+'/user'} component={User} />
                     <Route exact  path={match.url+'/timetracker'} component={Timetracker} />
+                    <Route exact  path= {match.url+'/userdetails' } component={UserDetails} />
                 </div>
             </div>
         );

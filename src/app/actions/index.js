@@ -33,32 +33,27 @@ function setLoginError(loginError) {
         loginError
     }
 }
-function callLoginApi(email, password, callback) {
-    setTimeout(() => {
-        if ((email === 'admin@example.com' || email === 'motupallivijay@gmail.com') && password === 'admin') {
-            return callback(null);
-        } else {
-            return callback(new Error('Invalid email and password'));
-        }
-    }, 1000);
-}
-
 export function login(email, password) {
-
      return  dispatch => {
         dispatch(setLoginPending(true));
         dispatch(setLoginSuccess(false));
         dispatch(setLoginError(null));
 
-        callLoginApi(email, password, error => {
-            dispatch(setLoginPending(false));
-            if (!error) {
-                localStorage.setItem("userToken",email);
-                dispatch(setLoginSuccess(true));
-            } else {
-                dispatch(setLoginError(error));
-            }
-        });
+         axios.post('/login', {
+             email: email,
+             password: password
+         })
+             .then(function (response) {
+                 console.log("-----response from-----",response);
+                 dispatch(setLoginPending(false));
+                 localStorage.setItem("accesstoken",response.data.accesstoken);
+                 dispatch(setLoginSuccess(true));
+             })
+             .catch(function (error) {
+                 console.log("----iam in error----",error)
+                 dispatch(setLoginPending(false));
+                 if(error)dispatch(setLoginError("Invalid Credentials"));
+             });
     }
 }
 export function getUsers() {
@@ -74,6 +69,13 @@ export function setUsersData(usersData) {
     return {
         type: "SET_USERS_DATA",
         payload:usersData
+    }
+}
+export function selectedUserData(selectedUserData) {
+
+    return {
+        type: "SELECTED_USER_DATA",
+        payload:selectedUserData
     }
 }
 

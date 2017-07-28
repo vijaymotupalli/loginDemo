@@ -9,7 +9,7 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
 
-        if(localStorage.getItem("userToken")){
+        if(localStorage.getItem("accesstoken")){
             this.props.setLoginSuccess(true);
         }
         this.state = {
@@ -59,7 +59,7 @@ class Login extends React.Component {
                                 <label className="errorcolor">
                                     { isLoginPending && <div>Please wait...</div>  }
                                     { isLoginSuccess && <div>Success.</div> }
-                                    { loginError && <div>{loginError.message}</div> }
+                                    { loginError && <div>{loginError}</div> }
                                 </label>
                             </div>
                             <div className="form-group text-center">

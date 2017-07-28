@@ -1,27 +1,37 @@
 import React from "react";
 import {connect} from "react-redux";
 import './styles.css';
-import { getUsers } from "../actions/index";
+import { getUsers,selectedUserData } from "../actions/index";
+import {Route, Link, Switch} from 'react-router-dom';
 
 class User extends React.Component {
     constructor(props){
         super(props);
         this.props.getUsers();
     }
+    selectedUser(user){
+        const {context,history} = this.props
+        console.log("test",user)
+        this.props.selectedUserData(user);
+        history.push('userdetails')
+        console.log(this.props)
+    }
    render(){
+       const {match} = this.props
        console.log("'------array of users----",this.props.users)
        var temp = this.props.users ? this.props.users :[]
-       var listUsers = temp.map(function(user) {
+       var listUsers = temp.map(function (user) {
            return (
-               <tr>
+               <tr key={user.createdAt} onClick={()=>this.selectedUser(user)}>
                    <td><img src={user.profile.picture}/></td>
                    <td>{user.profile.name}</td>
                    <td>{user.profile.email}</td>
                    <td>{user.profile.location ? user.profile.location : ""}</td>
                    <td>{user.createdAt}</td>
                </tr>
+
            );
-       });
+       },this);
        return (
            <div>
                <div>
@@ -58,7 +68,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getUsers: () => dispatch(getUsers())
+        getUsers: () => dispatch(getUsers()),
+        selectedUserData: (data) => dispatch(selectedUserData(data)),
     };
 }
 
