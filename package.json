@@ -13,6 +13,7 @@
   "author": "vijayneophyte",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.16.2",
     "css-loader": "^0.28.4",
     "moment": "^2.18.1",
     "react": "^15.2.1",

@@ -29,10 +29,7 @@ class Main extends React.Component {
                 </div>
                 <div  className="container-fluid" id="toggleMenu">
                     <Route exact  path={match.url+'/user'} component={User} />
-                    <Route exact  path={match.url} component={Title} />
                     <Route exact  path={match.url+'/timetracker'} component={Timetracker} />
-                    <Route exact  path={match.url+'/newlogin'} component={Newlogin} />
-                    <Route exact  path={match.url+'/google'} component={Google} />
                 </div>
             </div>
         );

@@ -1,3 +1,8 @@
+var axios = require('axios');
+
+axios.defaults.baseURL = 'http://54.254.175.129:9000';
+axios.defaults.headers.common['accesstoken'] = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MDE4MzAyMTI2MDgsInVzZXIiOnsiX2lkIjoiNTk2ZjU5MjM0OWU4MmQxNzI0OGExMWRhIiwidXBkYXRlZEF0IjoiMjAxNy0wNy0yN1QwODozODowNC4zNzlaIiwiY3JlYXRlZEF0IjoiMjAxNy0wNy0xOVQxMzowNTozOS4wNjFaIiwiZW1haWwiOiJhZG1pbkBzcHVydHJlZXRlY2guaW4iLCJyb2xlcyI6W3siX2lkIjoiNTk1MjQ4ZTk4YTgzMTcxZmIwOGFhMWNlIiwicm9sZSI6IlNVUEVSX0FETUlOIiwiZGlzcGxheV9uYW1lIjoiU3VwZXIgQWRtaW4iLCJwcml2aWxlZ2VzIjpbIk9SR19BREQiLCJBUFBfQUREIiwiQURNSU5fQUREIl19LHsiX2lkIjoiNTk1MjQ5MzMwMzdkMDYxNTU0ZDIwYTgyIiwicm9sZSI6IkFETUlOIiwiZGlzcGxheV9uYW1lIjoiQWRtaW4iLCJwcml2aWxlZ2VzIjpbIk9SR19BREQiLCJBUFBfQUREIiwiQURNSU5fQUREIl19XSwibmFtZSI6InNwdXJUcmVlIiwibGFzdExvZ2luIjoiMjAxNy0wNy0yN1QwODozODowNC4zNzZaIiwiaXNBY3RpdmUiOnRydWV9fQ.Bpnr52XNiWTax9L-d_DR5mfqZBXm_o6J4Yblqv4wtM0";
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 import {SET_LOGIN_PENDING,SET_LOGIN_SUCCESS,SET_LOGIN_ERROR} from './types'
 
@@ -56,6 +61,22 @@ export function login(email, password) {
         });
     }
 }
+export function getUsers() {
+    return  dispatch => {
+        axios.get('/api/users/')
+            .then(function(response) {
+                dispatch(setUsersData(response.data.users))
+            });
+    }
+}
+export function setUsersData(usersData) {
+
+    return {
+        type: "SET_USERS_DATA",
+        payload:usersData
+    }
+}
+
 export function googleLogin(email) {
 
     return  dispatch => {

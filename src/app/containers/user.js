@@ -1,13 +1,48 @@
 import React from "react";
 import {connect} from "react-redux";
+import './styles.css';
+import { getUsers } from "../actions/index";
 
 class User extends React.Component {
+    constructor(props){
+        super(props);
+        this.props.getUsers();
+    }
    render(){
+       console.log("'------array of users----",this.props.users)
+       var temp = this.props.users ? this.props.users :[]
+       var listUsers = temp.map(function(user) {
+           return (
+               <tr>
+                   <td><img src={user.profile.picture}/></td>
+                   <td>{user.profile.name}</td>
+                   <td>{user.profile.email}</td>
+                   <td>{user.profile.location ? user.profile.location : ""}</td>
+                   <td>{user.createdAt}</td>
+               </tr>
+           );
+       });
        return (
            <div>
-                       <h1>Second Container is Connected Here </h1>
-                       <h4>The User Page Is Below: </h4>
-                       <p>User Name: {this.props.user.name}</p>
+               <div>
+                   <h3 className="title">Users List</h3>
+                   <div className="gridTable" >
+                   <table    className="table table-striped table-bordered" cellSpacing="0" width="100%">
+                       <thead>
+                       <tr>
+                           <th>image</th>
+                           <th>Name</th>
+                           <th>Email</th>
+                           <th>City</th>
+                           <th>Member Since</th>
+                       </tr>
+                       </thead>
+                       <tbody>
+                       {listUsers}
+                       </tbody>
+                   </table>
+               </div>
+           </div>
            </div>
        );
    }
@@ -15,9 +50,17 @@ class User extends React.Component {
 
 
 const mapStateToProps = (state) => {
+    console.log("----state----",state)
     return {
-        user: state.User
+        users: state.User.users,
     };
-};
+}
 
-export default connect(mapStateToProps)(User);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getUsers: () => dispatch(getUsers())
+    };
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(User);

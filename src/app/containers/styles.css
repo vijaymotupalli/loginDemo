@@ -298,11 +298,11 @@ div.dataTables_wrapper div.dataTables_paginate {
 .mainLinks{
     margin-top: 5px;
 }
-.mainLinks a{
+.mainLinks Link{
     padding: 15px 15px;
     cursor: pointer;
 }
-.mainLinks a img{
+.mainLinks Link img{
     margin: 0 10px 0 0;
     font-size: 20px;
     line-height: 0;
@@ -319,11 +319,11 @@ div.dataTables_wrapper div.dataTables_paginate {
     list-style: none;
     display: block;
 }
-.mainLinks ul li a{
+.mainLinks ul li Link{
     font-size: 14px !important;
     padding: 8px 0 8px 15px;
 }
-.mainLinks ul li a.active{
+.mainLinks ul li Link.active{
     font-weight: 900;
     background: none !important;
     border:0 !important;
