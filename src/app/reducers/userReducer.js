@@ -1,6 +1,7 @@
 const userReducer = (state = {
     users: "",
-    selectedUser:""
+    selectedUser:"",
+    userUploadedItems:""
 }, action) => {
     switch (action.type) {
         case "SET_USERS_DATA":
@@ -13,6 +14,12 @@ const userReducer = (state = {
             state = {
                 ...state,
                 selectedUser: action.payload
+            };
+            break;
+        case "SET_USER_UPLOADED_ITEMS":
+            state = {
+                ...state,
+                userUploadedItems: action.payload
             };
             break;
     }

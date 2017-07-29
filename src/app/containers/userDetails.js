@@ -1,12 +1,14 @@
 import React from "react";
 import {connect} from "react-redux";
 import './styles.css';
-import {getUsers} from "../actions/index";
+import {getUsers,getUserUploadedItems} from "../actions/index";
+import {Products} from "../components/products"
 
 class UserDetails extends React.Component {
     constructor(props) {
         super(props);
-
+        this.props.getUserUploadedItems(props.selectedUser._id);
+        console.log("-----props in userdetails-----",props)
     }
     render() {
         return (
@@ -47,132 +49,8 @@ class UserDetails extends React.Component {
                             </div>
                         </div>
                     </div>
-
                         <div  className="row">
-                            <div  className="col-md-4">
-                                <div  className="panel panel-default productWidget">
-                                    <div  className="panel-heading">
-                                        <div  className="row">
-                                            <div  className="col-md-9">
-                                                <p >Uploaded Products  <strong >0</strong></p>
-                                            </div>
-                                            <div  className="col-md-3 text-right">
-                                                <a  href="javascript:;">View All</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div  className="panel-body">
-                                        <div  className="row">
-                      <p  className="text-center"> No items found</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div  className="col-md-4">
-                                <div  className="panel panel-default productWidget">
-                                    <div  className="panel-heading">
-                                        <div  className="row">
-                                            <div  className="col-md-9">
-                                                <p >Liked Products  <strong >0</strong></p>
-                                            </div>
-                                            <div  className="col-md-3 text-right">
-                                                <a  href="javascript:;">View All</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div  className="panel-body">
-                                        <div  className="row">
-                       <p  className="text-center"> No items found</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div  className="col-md-4">
-                                <div  className="panel panel-default productWidget">
-                                    <div  className="panel-heading">
-                                        <div  className="row">
-                                            <div  className="col-md-9">
-                                                <p >Favourite Products  <strong >20</strong></p>
-                                            </div>
-                                            <div  className="col-md-3 text-right">
-                                                <a  href="javascript:;">View All</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div  className="panel-body">
-                                        <div  className="row">
-                                            <div  className="col-md-4">
-                                                <div  className="productList">
-                                                    <figure >
-                                                        <img  src="../../assets/images/prod1.png" />
-                                                    </figure>
-                                                    <figcaption >
-                                                        <p >Zara <span > M</span></p>
-                                                        <p >Long Dress</p>
-                                                    </figcaption>
-                                                </div>
-                                            </div>
-                                            <div  className="col-md-4">
-                                                <div  className="productList">
-                                                    <figure >
-                                                        <img  src="../../assets/images/prod2.png" />
-                                                    </figure>
-                                                    <figcaption >
-                                                        <p >Gili</p>
-                                                        <p >Silver Ring</p>
-                                                    </figcaption>
-                                                </div>
-                                            </div>
-                                            <div  className="col-md-4">
-                                                <div  className="productList">
-                                                    <figure >
-                                                        <img  src="../../assets/images/prod3.png" />
-                                                    </figure>
-                                                    <figcaption >
-                                                        <p >Versace</p>
-                                                        <p >Hand Bag</p>
-                                                    </figcaption>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div  className="row">
-                                            <div  className="col-md-4">
-                                                <div  className="productList">
-                                                    <figure >
-                                                        <img  src="../../assets/images/prod4.png" />
-                                                    </figure>
-                                                    <figcaption >
-                                                        <p >KOOVS <span > S </span></p>
-                                                        <p >Long Dress</p>
-                                                    </figcaption>
-                                                </div>
-                                            </div>
-                                            <div  className="col-md-4">
-                                                <div  className="productList">
-                                                    <figure >
-                                                        <img  src="../../assets/images/prod5.png" />
-                                                    </figure>
-                                                    <figcaption >
-                                                        <p >Versace</p>
-                                                        <p >Hand bag</p>
-                                                    </figcaption>
-                                                </div>
-                                            </div>
-                                            <div  className="col-md-4">
-                                                <div  className="productList">
-                                                    <figure >
-                                                        <img  src="../../assets/images/prod6.png" />
-                                                    </figure>
-                                                    <figcaption >
-                                                        <p >Fusion <span > M</span></p>
-                                                        <p >Long Dress</p>
-                                                    </figcaption>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {this.props.userItems.likedItems && <Products items={this.props.userItems} title="Uploaded Items"/> }
                         </div>
                     </div>
                 </div>
@@ -188,12 +66,14 @@ const mapStateToProps = (state) => {
     console.log("----userdetails state----", state)
     return {
         selectedUser: state.User.selectedUser,
+        userItems:state.User.userUploadedItems
     };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getUsers: () => dispatch(getUsers())
+        getUsers: () => dispatch(getUsers()),
+        getUserUploadedItems:(userId)=> dispatch(getUserUploadedItems(userId))
     };
 }
 
