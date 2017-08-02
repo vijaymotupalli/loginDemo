@@ -3,6 +3,7 @@ import logger from "redux-logger";
 import thunk from 'redux-thunk';
 import User from "./reducers/userReducer";
 import Login from "./reducers/loginReducer";
+import Event from "./reducers/eventsReducer";
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 const composeEnhancers = composeWithDevTools({
@@ -11,7 +12,7 @@ const composeEnhancers = composeWithDevTools({
 
 export default createStore(
     combineReducers({
-        User,Login
+        User,Login,Event
     }),
     {},
     composeEnhancers(

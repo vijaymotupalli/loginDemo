@@ -83,6 +83,13 @@ export function setUserUploadedItems(userUploadedItems) {
         payload:userUploadedItems
     }
 }
+export function setEventData(data) {
+
+    return {
+        type: "SET_EVENT_DATA",
+        payload:data
+    }
+}
 export function setUsersData(usersData) {
 
     return {
@@ -105,14 +112,12 @@ export function googleLogin(email) {
         dispatch(setLoginSuccess(false));
         dispatch(setLoginError(null));
 
-        callLoginApi(email, "admin", error => {
+        if(email == "motupallivijay@gmail.com") {
             dispatch(setLoginPending(false));
-            if (!error) {
-                localStorage.setItem("userToken",email);
+            localStorage.setItem("userToken",email);
                 dispatch(setLoginSuccess(true));
-            } else {
-                dispatch(setLoginError(error));
-            }
-        });
+        }else {
+            dispatch(setLoginError(error));
+        }
     }
 }

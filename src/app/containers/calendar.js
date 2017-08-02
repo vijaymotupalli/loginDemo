@@ -2,38 +2,33 @@ import React from "react";
 
 import EventCalendar from 'react-event-calendar'
 import 'style-loader!react-event-calendar/style.css';
+import './styles.css'
 
 import ReactDOM from 'react-dom';
 
 import moment from 'moment';
-
+import {Route, Link, Switch} from 'react-router-dom';
+import {connect} from "react-redux";
 import Button from 'react-bootstrap/lib/Button';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 
-const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December', ];
+import {Selector} from './selector';
+
+import {getUsers, selectedUserData, setEventData} from "../actions/index";
+
+const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December',];
 
 class Calendar extends React.Component {
 
     constructor(props) {
         super(props);
-
         this.state = {
             moment: moment(),
             showPopover: false,
             showModal: false,
             overlayTitle: null,
             overlayContent: null,
-            popoverTarget: null,
-            getEvents:[
-                {
-                    start: '2017-07-20',
-                    end: '2017-07-20',
-                    eventClasses: 'optionalEvent',
-                    title: '8hr',
-                    description: 'This is a test description of an event',
-                }
-
-            ]
+            popoverTarget: null
         };
 
         this.handleNextMonth = this.handleNextMonth.bind(this);
@@ -66,9 +61,6 @@ class Calendar extends React.Component {
 
     handleEventMouseOver(target, eventData, day) {
 
-        console.log(target);
-        console.log(eventData)
-
         this.setState({
             showPopover: true,
             popoverTarget: () => ReactDOM.findDOMNode(target),
@@ -94,6 +86,8 @@ class Calendar extends React.Component {
     }
 
     handleDayClick(target, day) {
+
+        this.props.history.push(this.props.match.url + '/addtime');
         this.setState({
             showPopover: false,
             showModal: true,
@@ -117,22 +111,14 @@ class Calendar extends React.Component {
     }
 
     getHumanDate() {
-        return [moment.months('MM', this.state.moment.month()), this.state.moment.year(), ].join(' ');
+        return [moment.months('MM', this.state.moment.month()), this.state.moment.year(),].join(' ');
     }
 
     render() {
-        const styles = {
-            position: "relative",
-            padding: 20,
-            margin: 20,
-            minWidth:"100%"
-    };
+        console.log("----events---", this.props.events);
         return (
-            <div >
-                <div style={{ fontSize: "-webkit-xxx-large",
-                    textAlign: "center",
-                    fontFamily: "cursive"}}>Time Tracking</div>
-                <div style={styles}>
+            <div id="testdiv">
+                <div className="calendar">
                     <ButtonToolbar>
                         <Button onClick={this.handlePreviousMonth}>&lt;</Button>
                         <Button onClick={this.handleNextMonth}>&gt;</Button>
@@ -142,7 +128,7 @@ class Calendar extends React.Component {
                     <EventCalendar
                         month={this.state.moment.month()}
                         year={this.state.moment.year()}
-                        events={this.state.getEvents}
+                        events={this.props.events}
                         onEventClick={this.handleEventClick}
                         onEventMouseOver={this.handleEventMouseOver}
                         onEventMouseOut={this.handleEventMouseOut}
@@ -150,10 +136,34 @@ class Calendar extends React.Component {
                         maxEventSlots={1}
                     />
                 </div>
+                <div className="addtime">
+                    <Route path={this.props.match.url + '/addtime'} component={Selector}/>
+                </div>
+                {/*<div className="addtime">*/}
+
+                {/*</div>*/}
+
+
             </div>
         );
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        events: state.Event.Events,
 
-export default Calendar;
+    };
+};
+
+
+const mapDispatchToProps = (dispatch)=> {
+
+    return {
+        setEventData: (data) => dispatch(setEventData(data))
+    };
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Calendar);
+
 
