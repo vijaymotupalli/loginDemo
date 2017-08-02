@@ -10,6 +10,7 @@ import Google from './google.js'
 import  User  from "./user";
 import  UserDetails  from "./userDetails";
 import {Title} from "../components/title";
+import {Select} from "../components/addhours";
 import { BrowserRouter,Route ,Redirect} from 'react-router-dom'
 import './styles.css'
 
@@ -30,7 +31,8 @@ class Main extends React.Component {
                 </div>
                 <div  id="toggleMenu">
                     <Route exact  path={match.url+'/user'} component={User} />
-                    <Route exact  path={match.url+'/timetracker'} component={Timetracker} />
+                    <Route   path={match.url+'/timetracker'} component={Timetracker} />
+                    <Route   path={match.url+'/addtime'} component={Select} />
                     <Route exact  path= {match.url+'/userdetails' } component={UserDetails} />
                 </div>
             </div>

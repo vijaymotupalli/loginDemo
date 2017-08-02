@@ -35,6 +35,7 @@ class Menu extends React.Component {
                     <img src="../../assets/images/logo.png" className="logo2"/>
                     <div className="mainLinks">
                         <NavLink to= {match.url+'/timetracker' }activeClassName="active" exact>Time Tracker</NavLink>
+                        <NavLink to= {match.url+'/addtime' }activeClassName="active" exact>addtime</NavLink>
                         <NavLink to= {match.url+'/userdetails' }activeClassName="active" exact>UserDetails</NavLink>
                         <NavLink to= {match.url+'/user'} activeClassName="active" exact><img
                             src="../../assets/images/multiple-users-silhouette.png"/> Users List</NavLink>

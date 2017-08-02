@@ -340,6 +340,13 @@ div.dataTables_wrapper div.dataTables_paginate {
     color:#000;
     padding:15px;
 }
+.btn-toolbar {
+    /* margin-left: -5px; */
+    margin: auto;
+    padding: 15px;
+    width: 80%;
+}
+
 .butnFilter {
     margin: -40px 0 0 0;
 }

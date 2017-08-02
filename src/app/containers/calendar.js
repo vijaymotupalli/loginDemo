@@ -2,11 +2,11 @@ import React from "react";
 
 import EventCalendar from 'react-event-calendar'
 import 'style-loader!react-event-calendar/style.css';
-
+import './styles.css'
 import ReactDOM from 'react-dom';
-
+import {Select} from "../components/addhours";
 import moment from 'moment';
-
+import { BrowserRouter,Route ,Redirect} from 'react-router-dom'
 import Button from 'react-bootstrap/lib/Button';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 
@@ -18,6 +18,7 @@ class Calendar extends React.Component {
         super(props);
 
         this.state = {
+            selectedDate:"",
             moment: moment(),
             showPopover: false,
             showModal: false,
@@ -26,10 +27,12 @@ class Calendar extends React.Component {
             popoverTarget: null,
             getEvents:[
                 {
-                    start: '2017-07-20',
-                    end: '2017-07-20',
+                    start: '2017-08-20',
+                    end: '2017-08-20',
                     eventClasses: 'optionalEvent',
-                    title: '8hr',
+                    title: '8',
+                    hours:"23",
+                    mins:"30",
                     description: 'This is a test description of an event',
                 }
 
@@ -94,12 +97,16 @@ class Calendar extends React.Component {
     }
 
     handleDayClick(target, day) {
+        this.props.history.push(this.props.match.url+'/addtime');
+
         this.setState({
+            selectedDate :this.getMomentFromDay(day).format('YYYY MM DD'),
             showPopover: false,
             showModal: true,
             overlayTitle: this.getMomentFromDay(day).format('Do of MMMM YYYY'),
             overlayContent: 'User clicked day (but not event node).',
-        });
+        })
+        console.log("-----slected date is -----",this.getMomentFromDay(day).format('YYYY MM DD'));
     }
 
     getMomentFromDay(day) {
@@ -129,26 +136,28 @@ class Calendar extends React.Component {
     };
         return (
             <div >
-                <div style={{ fontSize: "-webkit-xxx-large",
-                    textAlign: "center",
-                    fontFamily: "cursive"}}>Time Tracking</div>
-                <div style={styles}>
-                    <ButtonToolbar>
-                        <Button onClick={this.handlePreviousMonth}>&lt;</Button>
-                        <Button onClick={this.handleNextMonth}>&gt;</Button>
-                        <Button onClick={this.handleToday}>Today</Button>
-                        <span className="pull-right h2">{this.getHumanDate()}</span>
-                    </ButtonToolbar>
-                    <EventCalendar
-                        month={this.state.moment.month()}
-                        year={this.state.moment.year()}
-                        events={this.state.getEvents}
-                        onEventClick={this.handleEventClick}
-                        onEventMouseOver={this.handleEventMouseOver}
-                        onEventMouseOut={this.handleEventMouseOut}
-                        onDayClick={this.handleDayClick}
-                        maxEventSlots={1}
-                    />
+                <div  className="cardWidget">
+                    <div  className="cardTop">
+                        <div  className="row">
+                            <ButtonToolbar>
+                                <Button onClick={this.handlePreviousMonth}>&lt;</Button>
+                                <Button onClick={this.handleNextMonth}>&gt;</Button>
+                                <Button onClick={this.handleToday}>Today</Button>
+                                <span className="pull-right h2">{this.getHumanDate()}</span>
+                            </ButtonToolbar>
+                            <EventCalendar
+                                month={this.state.moment.month()}
+                                year={this.state.moment.year()}
+                                events={this.state.getEvents}
+                                onEventClick={this.handleEventClick}
+                                onEventMouseOver={this.handleEventMouseOver}
+                                onEventMouseOut={this.handleEventMouseOut}
+                                onDayClick={this.handleDayClick}
+                                maxEventSlots={1}
+                            />
+                        </div>
+                    </div>
+                    <Route   path={this.props.match.url+'/addtime'} component={Select}  />
                 </div>
             </div>
         );
